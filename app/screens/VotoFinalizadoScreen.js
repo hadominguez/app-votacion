@@ -10,17 +10,11 @@ export default class VotoFinalizadoScreen extends Component{
         this.props.navigation.navigate(routeName)
     }
 
-    componentDidMount(){
-       setTimeout(() => {
-           this.goToScreen('Login')
-       }, 4000, this) 
-    }
-
     render(){
 
         const home = async () => {
             try {
-                navigation.navigate('Home');
+                this.goToScreen('Login');
             } catch (error) {
                 console.log(error);
             }
@@ -42,8 +36,9 @@ export default class VotoFinalizadoScreen extends Component{
                 />
                 <Text style={[ loginStyles.textoGrueso ]}> Votación Finalizada </Text>
 
+
                 <MyButton
-                    title='Volver al inicio'
+                    title='Salir'
                     style={loginStyles.btnMain} 
                     onPressFunction={home}
                 />

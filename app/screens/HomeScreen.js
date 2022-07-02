@@ -16,14 +16,19 @@ export default function Home({ navigation, route }) {
     const [voto_1, setVoto1] = useState('');
     const [voto_2, setVoto2] = useState('');
     const [voto_3, setVoto3] = useState('');
+    const [hora, setHora] = useState('');
+    
     
 
     let boton_votar;
-
-    if(voto){
+    if(voto == true && hora == true && hashVoto.length >= 1){
         boton_votar = 'Consultar Estado del Voto'
-    }else{
+    }else if(voto == true && hora == true && hashVoto.length < 1){
+        boton_votar = 'No Puedes Consultar Tu Voto'
+    }else if(voto == false && hora == true ){
         boton_votar = 'Votar'
+    }else if(voto == false && hora == false ){
+        boton_votar = 'Votación Cerrada'
     }
 
     useEffect(() => {
@@ -42,6 +47,7 @@ export default function Home({ navigation, route }) {
                         setNombre(user.Nombre);
                         setApellido(user.Apellido);
                         setVoto(user.Voto);
+                        setHora(user.Horario);
                     }
                 });
             AsyncStorage.getItem('HashData')
@@ -86,11 +92,19 @@ export default function Home({ navigation, route }) {
         }
     }
 
+    const salir = async () => {
+        try {
+            navigation.navigate('Login');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const setDataVotar = async () => {
         if (dni.length == 0 || tramite.length == 0 || sexo.length == 0) {
             Alert.alert('Warning!', 'Ingres tus datos.')
         } else {
-            if(voto){
+            if(voto == true && hora == true && hashVoto.length >= 1){
                 try {
                     var response = await fetch('http://192.168.0.109:3011/verificarVoto', {
                         method: 'post',
@@ -112,7 +126,7 @@ export default function Home({ navigation, route }) {
                 } catch (error) {
                     console.log(error);
                 }
-            }else{
+            }else if(voto == false && hora == true ){
                 try {
                     var response = await fetch('http://192.168.0.109:3011/getListasFinales', {
                         method: 'post',
@@ -188,6 +202,11 @@ export default function Home({ navigation, route }) {
                 title='Eliminar Información'
                 style={loginStyles.btnMain} 
                 onPressFunction={removeData}
+            />
+            <MyButton
+                title='Salir'
+                style={loginStyles.btnMain} 
+                onPressFunction={salir}
             />
         </View>
     )

@@ -124,9 +124,10 @@ export default function VotarTercero({ navigation, route }) {
                 Dni: dni,
                 Tramite: tramite,
                 Sexo: sexo,
-                Nombre: data.nombre,
-                Apellido: data.apellido,
-                Voto: data.voto
+                Nombre: data.persona.nombre,
+                Apellido: data.persona.apellido,
+                Voto: data.persona.voto,
+                Horario: data.horario
             }
             if(user.Nombre){
                 await AsyncStorage.mergeItem('UserData', JSON.stringify(user));

@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from "react";
-import { View, StatusBar, Image } from "react-native";
+import { View, StatusBar, Image, Alert } from "react-native";
 import { loginStyles } from "../styles/styles";
 import {CheckBox } from 'react-native-elements';
 import MyTextInput from "../components/MyTextInput";
@@ -47,7 +47,7 @@ export default function LoginScreen({ navigation, route }){
 
     const setData = async () => {
         if (dni.length == 0 || tramite.length == 0 || sexo.length == 0) {
-            Alert.alert('Warning!', 'Please write your data.')
+            Alert.alert('Aviso:', 'Por favor ingrese sus datos.')
         } else {
             try {
                 var response = await fetch('http://192.168.0.109:3011/validarDatos', {
@@ -70,9 +70,10 @@ export default function LoginScreen({ navigation, route }){
                     Dni: dni,
                     Tramite: tramite,
                     Sexo: sexo,
-                    Nombre: data.nombre,
-                    Apellido: data.apellido,
-                    Voto: data.voto
+                    Nombre: data.persona.nombre,
+                    Apellido: data.persona.apellido,
+                    Voto: data.persona.voto,
+                    Horario: data.horario,
                 }
                 if(user.Nombre){
                     await AsyncStorage.setItem('UserData', JSON.stringify(user));
@@ -92,9 +93,9 @@ export default function LoginScreen({ navigation, route }){
             <View style={loginStyles.logo}>
                 <Image source={require('../resources/images/logochico.png')}/>
             </View>
-            <MyTextInput keyboardType={null} placeholder='DNI' image='user' 
+            <MyTextInput keyboardType={'numeric'} placeholder='DNI' image='user' 
                 onChangeText={(value) => setDni(value)}/>
-            <MyTextInput keyboardType={null} placeholder='Nro. Tramite' image='user'
+            <MyTextInput keyboardType={'numeric'} placeholder='Nro. Tramite' image='user'
                 onChangeText={(value) => setTramite(value)}/>
 
             <CheckBox

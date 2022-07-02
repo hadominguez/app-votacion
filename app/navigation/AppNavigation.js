@@ -2,7 +2,6 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator} from "react-navigation-stack";
 import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
-import PrincipalScreen from '../screens/PrincipalScreen';
 import HomeScreen from '../screens/HomeScreen';
 import VotarScreen from '../screens/VotarScreen';
 import VotarSegundoScreen from '../screens/VotarSegundoScreen';
@@ -20,12 +19,6 @@ const AppNavigation = createStackNavigator({
     },
     Login:{
         screen: LoginScreen,
-        navigationOptions: {
-            headerShown: false,
-        }
-    },
-    Principal:{
-        screen: PrincipalScreen,
         navigationOptions: {
             headerShown: false,
         }
