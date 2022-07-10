@@ -95,7 +95,7 @@ export default function LoginScreen({ navigation, route }){
             </View>
             <MyTextInput keyboardType={'numeric'} placeholder='DNI' image='user' 
                 onChangeText={(value) => setDni(value)}/>
-            <MyTextInput keyboardType={'numeric'} placeholder='Nro. Tramite' image='user'
+            <MyTextInput keyboardType={'numeric'} placeholder='Nro. Trámite' image='user'
                 onChangeText={(value) => setTramite(value)}/>
 
             <CheckBox

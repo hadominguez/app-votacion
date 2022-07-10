@@ -51,7 +51,7 @@ export default function VotarTercero({ navigation, route }) {
                         setVoto(user.Voto);
                     }
                 });
-            let newHash = await SHA256(dni + sexo + tramite).toString();
+            let newHash = await SHA256(dni + sexo + tramite + (Math.random() * 5.0).toString()).toString();
             setHashVoto(newHash);
             var hash = {Hash : newHash};
             await AsyncStorage.setItem('HashData', JSON.stringify(hash));
